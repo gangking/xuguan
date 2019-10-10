@@ -1,25 +1,31 @@
 <template>
   <div>
-    <div
-      v-for="(item, index) in collectionArr"
-      :key="item.id"
-      class="collection-item"
-      :class="{ 'mobile-collection-item' : isMobileScreen, 'even-item': index%2 === 1 && !isMobileScreen }">
-      
-      <div class="img-hover" v-if="!isMobileScreen">
-        <img :src="item.src" @click="handlePop(item.src)">
+    <div v-for="(item, index) in collectionArr"
+         :key="item.id"
+         class="collection-item"
+         :class="{ 'mobile-collection-item' : isMobileScreen, 'even-item': index%2 === 1 && !isMobileScreen }">
+
+      <div class="img-hover"
+           v-if="!isMobileScreen">
+        <img :src="item.src"
+             @click="handlePop(item.oldSrc?item.oldSrc:item.src)">
       </div>
 
-      <img :src="item.src" @click="handlePop(item.src)" v-else>
+      <img :src="item.src"
+           @click="handlePop(item.oldSrc?item.oldSrc:item.src)"
+           v-else>
 
-      <div v-if="!isMobileScreen" class="img-content">
-        <img :src="collectionRect" alt="" class="small-rect">
+      <div v-if="!isMobileScreen"
+           class="img-content">
+        <img :src="collectionRect"
+             alt=""
+             class="small-rect">
         <div class="PC-item">
           <div class="title-item">
             <div>{{item.name}}</div>
             <div>{{item.dynasty}}</div>
           </div>
-          <p class="size-item" >
+          <p class="size-item">
             {{$t('user.sizeInfo')}}：{{item.size}}
           </p>
           <p class="content-item">
@@ -27,7 +33,8 @@
           </p>
         </div>
       </div>
-      <div class="mobile-title-item img-content" v-else>
+      <div class="mobile-title-item img-content"
+           v-else>
         <p>
           <span>{{$t('user.sizeInfo')}}：{{item.size}}</span>
           <span>{{item.dynasty}}</span>
@@ -40,31 +47,40 @@
         </div>
       </div>
     </div>
-    <van-popup v-model="popShow" :closeable="true" :class="{'mobile-pop':isMobileScreen}">
-      <img :src="popSrc" alt="">
+    <van-popup v-model="popShow"
+               :closeable="true"
+               :class="{'mobile-pop':isMobileScreen}">
+      <img :src="popSrc"
+           alt="">
     </van-popup>
   </div>
 </template>
 
 <script>
 import collectionItem1 from '@/assets/img/collection-item1.png'
+import collectionItem1Old from '@/assets/img/collection-item-old1.png'
 import collectionItem2 from '@/assets/img/collection-item2.png'
+import collectionItem2Old from '@/assets/img/u255.jpg'
 import collectionItem3 from '@/assets/img/collection-item3.png'
+import collectionItem3Old from '@/assets/img/collection-item-old3.png'
 import collectionItem4 from '@/assets/img/collection-item4.png'
+import collectionItem4Old from '@/assets/img/collection-item-old4.jpg'
 import collectionItem8 from '@/assets/img/collection-item8.png'
+import collectionItem8Old from '@/assets/img/u261.jpg'
 import collectionRect from '@/assets/img/collection_rect.png'
 
 export default {
   inject: ['isMobileScreen'],
   props: {
   },
-  data() {
+  data () {
     return {
       collectionArr: [
         {
           id: 1,
           src: collectionItem1,
           name: '药佛爷',
+          oldSrc: collectionItem1Old,
           dynasty: 'xx 朝代',
           size: 'xxxxxxx',
           content: '药师琉璃光如来，又译为药师琉璃光王佛，简称药师如来、琉璃光佛、消灾延寿药师佛，为东方净琉璃世界之教主。药师，比喻能治众生贪、瞋、痴的医师；以琉璃为名，乃取琉璃之光明透彻以喻国土清静无染。',
@@ -72,6 +88,7 @@ export default {
         {
           id: 2,
           src: collectionItem2,
+          oldSrc: collectionItem2Old,
           name: '三菩萨图',
           dynasty: 'xx 朝代',
           size: 'xxxxxxx',
@@ -80,6 +97,7 @@ export default {
         {
           id: 3,
           src: collectionItem3,
+          oldSrc: collectionItem3Old,
           name: '马王爷',
           dynasty: 'xx 朝代',
           size: 'xxxxxxx',
@@ -89,6 +107,7 @@ export default {
         {
           id: 4,
           src: collectionItem4,
+          oldSrc: collectionItem4Old,
           name: '福禄寿',
           dynasty: 'xx朝代',
           size: 'xxxxxxx',
@@ -97,6 +116,7 @@ export default {
         {
           id: 5,
           src: collectionItem8,
+          oldSrc: collectionItem8Old,
           name: '寿星',
           dynasty: 'xx朝代',
           size: 'xxxxxxx',
@@ -111,7 +131,7 @@ export default {
     }
   },
   methods: {
-    handlePop(src) {
+    handlePop (src) {
       this.popSrc = src
       this.popShow = true
     }
@@ -144,7 +164,7 @@ export default {
     &:hover {
       border: 1px solid #811c26;
     }
-    &:hover~.img-content {
+    &:hover ~ .img-content {
       > img {
         transform: rotate(180deg);
         transition: all 0.3s;
@@ -158,7 +178,7 @@ export default {
     width: 50%;
     font-size: 16px;
     color: #040000;
-    font-family: 'regular';
+    font-family: "regular";
     box-sizing: border-box;
     padding-left: 3.3%;
     margin-left: 50%;
@@ -181,10 +201,11 @@ export default {
     .content-item {
       color: #333;
       margin-left: 0;
+      line-height: 24px;
     }
   }
 }
-.collection-item:first-child{
+.collection-item:first-child {
   margin-top: 30px;
 }
 .even-item {
@@ -215,7 +236,7 @@ export default {
   > .img-content {
     width: 100%;
     margin-left: 0;
-    > p:first-child{
+    > p:first-child {
       font-size: 16px;
       color: #040000;
       text-align: right;
@@ -223,12 +244,12 @@ export default {
         margin-right: 0.4rem;
       }
     }
-    > p:nth-child(2){
+    > p:nth-child(2) {
       font-size: 24px;
       color: #4d4b4b;
       text-align: center;
     }
-    > .content-item{
+    > .content-item {
       font-size: 16px;
       color: #4d4b4b;
     }
